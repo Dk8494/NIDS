@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+.env
+
+# IDE / OS
+.vscode/
+.DS_Store
+
+# Build / package
+build/
+dist/
+*.egg-info/
+
+# Artifacts
+models/*.joblib
+models/*.keras
+models/*.json
+models/*.csv
+models/*.png
+
+# Data files
+*.log
