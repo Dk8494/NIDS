@@ -1,0 +1,30 @@
+{
+  "best_model": "xgboost",
+  "is_deep_learning": false,
+  "all_metrics": {
+    "logistic_regression": {
+      "accuracy": 0.7536816891412349,
+      "precision": 0.9174311926605505,
+      "recall": 0.6233928153978026,
+      "f1_score": 0.7423560525216907
+    },
+    "random_forest": {
+      "accuracy": 0.7762154009936125,
+      "precision": 0.9689306358381503,
+      "recall": 0.6269773240863399,
+      "f1_score": 0.7613190140511898
+    },
+    "xgboost": {
+      "accuracy": 0.790542938254081,
+      "precision": 0.9681403670783794,
+      "recall": 0.6535494428426712,
+      "f1_score": 0.7803312244138444
+    },
+    "deep_neural_network": {
+      "accuracy": 0.7817601135557133,
+      "precision": 0.9236534960916586,
+      "recall": 0.6721733032026805,
+      "f1_score": 0.778098502615912
+    }
+  }
+}
