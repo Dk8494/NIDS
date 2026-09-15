@@ -1,19 +1,17 @@
 # AI-Powered Network Intrusion Detection System
 
-An end-to-end machine learning and deep learning project for detecting network intrusions using the NSL-KDD dataset. The system trains multiple models, compares their performance, selects the best candidate, and exposes the final model through a Streamlit dashboard for batch prediction.
+A production-ready machine learning and deep learning system for detecting malicious network traffic using the NSL-KDD dataset.
 
-## Overview
+## Project Overview
 
-This project includes:
+This project builds an end-to-end intrusion detection workflow that:
+- Loads and preprocesses NSL-KDD network traffic data.
+- Trains multiple machine learning and deep learning models.
+- Evaluates each model using accuracy, precision, recall, and F1 score.
+- Saves the best-performing model and its metrics artifacts.
+- Provides a Streamlit dashboard for batch intrusion prediction and analytics.
 
-- Data preprocessing and feature engineering for NSL-KDD
-- Training of multiple intrusion detection models
-- Evaluation with standard classification metrics
-- Best-model selection based on F1 score
-- Saved model artifacts and metrics for deployment
-- A Streamlit app for uploading CSV data and generating predictions
-
-## Project Structure
+## Repository Structure
 
 ```text
 Network-Intrusion-Detection-System/
@@ -44,75 +42,94 @@ Network-Intrusion-Detection-System/
 ├── main.py
 ├── README.md
 ├── requirements.txt
-└── setup.py
+└── .venv/
 ```
 
-## Dataset and Task
+## System Architecture
 
-The project uses the NSL-KDD dataset, a cleaned and improved version of KDD'99 designed for intrusion detection research.
+```mermaid
+flowchart TD
+    A[NSL-KDD Dataset] --> B[Preprocessing]
+    B --> C[Feature Engineering]
+    C --> D1[Logistic Regression]
+    C --> D2[Random Forest]
+    C --> D3[XGBoost]
+    C --> D4[Deep Neural Network]
+    D1 --> E[Model Evaluation]
+    D2 --> E
+    D3 --> E
+    D4 --> E
+    E --> F[Best Model Selection]
+    F --> G[Saved Artifacts in models/]
+    G --> H[Streamlit Dashboard]
+    H --> I[Prediction + Attack Analytics]
+```
+
+## Dataset Explanation (NSL-KDD)
+
+The NSL-KDD dataset is an improved version of KDD'99, designed for intrusion detection benchmarking.
 
 - Input features: 41 network traffic attributes
-- Label style: binary classification
-- Normal traffic is mapped to 0
-- Attack traffic is mapped to 1
-- The pipeline automatically loads train and test data from the data folder when available
+- Target: binary intrusion label
+- Normal traffic: mapped to 0
+- Attack traffic: mapped to 1
+- Training and testing data are loaded from the data folder for model development and evaluation
 
-## Models Included
-
-The training pipeline evaluates and saves the following models:
+## Models Implemented
 
 - Logistic Regression
 - Random Forest
 - XGBoost
-- Deep Neural Network (TensorFlow/Keras)
+- Deep Neural Network (TensorFlow / Keras)
 
-Each model is evaluated using:
+## Evaluation Metrics
 
+For each model, the system computes:
 - Accuracy
 - Precision
 - Recall
 - F1 Score
-- Confusion matrix plots
+- Confusion Matrix plots saved as PNG files
+
+Comparison artifacts in models/ include:
+- metrics_summary.csv
+- model_comparison_f1.png
+- best_model_metadata.json
+- per-model confusion matrix images
 
 ## Installation
 
-### 1. Clone the repository
+### 1) Clone repository
 
 ```bash
 git clone <repository-url>
 cd Network-Intrusion-Detection-System
 ```
 
-### 2. Set up the environment
+### 2) Automatic environment setup
 
 ```bash
 bash scripts/setup.sh
 source venv/bin/activate
 ```
 
-This script creates a virtual environment and installs the dependencies from requirements.txt.
+The setup script creates a virtual environment and installs the dependencies in requirements.txt.
 
-## Quick Start
+## Usage
 
-### Train all models
+### Train models
 
 ```bash
 python main.py
 ```
 
-This runs the full workflow and generates artifacts inside the models folder.
-
-### Start the dashboard
+### Launch dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-Then upload a CSV file containing network traffic records and click Run Intrusion Detection.
-
-## Prediction API
-
-You can also run predictions directly from Python:
+### Predict from your own CSV (Python API)
 
 ```python
 from src.predict import predict_from_csv
@@ -124,39 +141,39 @@ predict_from_csv(
 )
 ```
 
-## Output Artifacts
+## Results and Model Comparison
 
-After training, the project stores the following files in the models directory:
+After training, inspect:
+- models/metrics_summary.csv for numeric performance comparison
+- models/model_comparison_f1.png for visual F1 comparison
+- per-model confusion matrix PNG files for error analysis
 
-- metrics_summary.csv
-- model_comparison_f1.png
-- best_model_metadata.json
-- confusion matrices for each trained model
-- best_model.joblib for the selected classical model
-- deep_neural_network.keras for the selected neural model
-- preprocessor.joblib for feature transformation
+The system automatically selects the model with the highest F1 score as the best model for deployment.
 
 ## Dashboard Features
 
-The Streamlit app supports:
-
-- Uploading network traffic data in CSV format
-- Running intrusion detection with the best trained model
-- Viewing row-level predictions and probabilities
-- Downloading prediction results as CSV
-- Visualizing attack distribution with charts
-
-## Notes
-
-- The code assumes the dataset files are present in the data folder.
-- If the dataset is missing, the system should be updated to download it automatically in a future extension.
-- The best model is selected using the highest F1 score.
+The Streamlit dashboard supports:
+- Upload network traffic data as a CSV file
+- Run intrusion detection using the best trained model
+- View row-level predictions and attack probabilities
+- Download predictions as a CSV file
+- Visualize attack statistics with bar and pie charts
 
 ## Future Improvements
 
-- Add multiclass attack classification
-- Support real-time packet monitoring
-- Add explainability tools such as SHAP
-- Add automated tests and CI workflows
-- Package the project for deployment as an API or service
+- Add multiclass attack type classification
+- Integrate real-time packet capture and monitoring
+- Add SHAP explainability views in the dashboard
+- Package model serving with FastAPI
+- Add tests and CI/CD automation
+
+## Quick Start Commands
+
+```bash
+git clone <repository-url>
+cd Network-Intrusion-Detection-System
+bash scripts/setup.sh
+python main.py
+streamlit run dashboard/app.py
+```
 
